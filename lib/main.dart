@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:isa_can_akhan_01/Screens/splash_Screen/splashScreen.dart';
 import 'package:isa_can_akhan_01/custom_widgets/routes.dart';
+import 'package:isa_can_akhan_01/datas/providers/appProviders.dart';
+import 'package:provider/provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-
-import 'Screens/deneme/login_register_http.dart';
-import 'supaDeneme/kayit_ve_login_ekranlari.dart';
+import 'Screens/customer_pages/shop_screen/shop_home_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -13,7 +14,7 @@ void main() async {
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt5Z2l1eHBnbHh6ZmRhZWp5ZmlvIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NzU3OTg0NjIsImV4cCI6MTk5MTM3NDQ2Mn0.x4s4CxTpLq60tqohV_lVlAihKAkI2EaVoxCPJpkapGE',
   );
 
-  runApp(const MyApp());
+  runApp(MultiProvider(providers: AppProviders.providers, child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -24,16 +25,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primarySwatch: Colors.grey),
-      // home: LoginAndRegisterHttp(),
-      initialRoute:
-          supabase.auth.currentSession != null ? '/simpleapp' : '/home',
+      home: SplasScreen(),
+      // home: ShopHomeScreen(),
+      // initialRoute:
+      //   supabase.auth.currentSession != null ? '/simpleapp' : '/home',
 
-      routes: {
-        '/home': (context) => const HomePage(),
-        '/signIn': (context) => const LoginEkrani(),
-        '/signup': (context) => const KayitEkrani(),
-        '/simpleapp': (context) => const SimpleAppPage(),
-      },
+      routes: routes,
 
       // routes: routes,
     );
